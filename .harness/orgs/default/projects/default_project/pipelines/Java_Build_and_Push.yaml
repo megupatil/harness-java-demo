@@ -38,7 +38,7 @@ pipeline:
                   spec:
                     image: maven:3.8-openjdk-17
                     shell: Sh
-                    command: mvn test
+                    command: mvn package
               - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
@@ -47,3 +47,5 @@ pipeline:
                     connectorRef: Megupatil_Dockerhub
                     repo: megupatil/harness
                     tags: <+input>.executionInput().selectOneFrom(latest)
+          sharedPaths:
+            - /harness
