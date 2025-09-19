@@ -47,5 +47,3 @@ pipeline:
                     connectorRef: Megupatil_Dockerhub
                     repo: megupatil/harness
                     tags: <+input>.executionInput().selectOneFrom(latest)
-          sharedPaths:
-            - /harness
