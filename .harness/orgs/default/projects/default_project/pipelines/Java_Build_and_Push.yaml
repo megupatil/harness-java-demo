@@ -36,7 +36,6 @@ pipeline:
                   name: Run maven tests
                   identifier: Run_maven_tests
                   spec:
-                    connectorRef: account.dockerhub
                     image: maven:3.8-openjdk-17
                     shell: Sh
                     command: mvn test
