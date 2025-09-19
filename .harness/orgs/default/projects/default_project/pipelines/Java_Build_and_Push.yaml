@@ -1,0 +1,48 @@
+pipeline:
+  name: Java Build and Push
+  identifier: Java_Build_and_Push
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Megupatil_Github
+        repoName: harness-java-demo
+        build: <+input>
+  stages:
+    - stage:
+        name: Build Stage
+        identifier: Build_Stage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run maven tests
+                  identifier: Run_maven_tests
+                  spec:
+                    shell: Sh
+                    command: mvn test
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Megupatil_Dockerhub
+                    repo: megupatil/harness
+                    tags: <+input>.executionInput().selectOneFrom(latest)
