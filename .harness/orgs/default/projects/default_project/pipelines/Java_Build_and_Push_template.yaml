@@ -30,13 +30,11 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run maven tests
-                  identifier: Run_maven_tests
-                  spec:
-                    image: maven:3.8-openjdk-17
-                    shell: Sh
-                    command: mvn package
+                  name: Build via Template
+                  identifier: Build_via_Template
+                  template:
+                    templateRef: Maven_Package_Build
+                    versionLabel: v1
               - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
